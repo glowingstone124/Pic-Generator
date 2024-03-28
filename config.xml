@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <width>1600</width>
+    <height>900</height>
+    <titleFontSize>40</titleFontSize>
+    <subTitleFontSize>30</subTitleFontSize>
+    <textFontSize>25</textFontSize>
+    <boldFontSize>35</boldFontSize>
+    <defaultOffset>50</defaultOffset>
+    <lineSpacing>20</lineSpacing>
+    <alignment>LEFT</alignment>
+    <font>Jetbrains Mono</font>
+</config>
