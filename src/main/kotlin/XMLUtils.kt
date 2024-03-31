@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 import Types.*
 import org.w3c.dom.NodeList
 import java.io.File
+import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -17,15 +18,23 @@ class XMLUtils {
         val xml: String = "content.xml"
         val content = Files.readString(Path.of(xml))
         val mt = MinecraftTool()
-        val replacedContent = content.replace(Regex("\\$\\w+")) {
-            when (it.value) {
-                "\$current" -> current.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-                "\$mspt" -> mt.getStat().mspt.toString()
-                "\$onlinecount" -> mt.getStat().onlinecount.toString()
-                else -> {
-                    it.value
+        var replacedContent = ""
+        try {
+            replacedContent = content.replace(Regex("\\$\\w+")) {
+                when (it.value) {
+                    "\$current" -> current.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                    "\$mspt" -> mt.getStat().mspt.toString()
+                    "\$onlinecount" -> mt.getStat().onlinecount.toString()
+                    else -> {
+                        it.value
+                    }
                 }
             }
+        } catch (e: IOException){
+            return mutableListOf<Text>(
+                Text("ERROR", TextType.TITLE),
+                Text("Could not retrive api messages from server.", TextType.TEXT)
+            )
         }
         val document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(InputSource(StringReader(replacedContent)))
         val root = document.documentElement
@@ -48,6 +57,7 @@ class XMLUtils {
 
         return textLines
     }
+
     fun readConfig(configPath: String): PicCfg {
         val file = File(configPath)
         if (!file.exists()) {

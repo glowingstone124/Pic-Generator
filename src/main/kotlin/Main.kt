@@ -41,7 +41,7 @@ import java.util.*
             throw ConfigurationException(i18nFun.key("config.notfound"))
         }
         println(i18nFun.key("notification.finish") + timer.measure {
-            imgFactory(outputPath, textLines, config, 0)
+        imgFactory(outputPath, textLines, config, 0)
         })
         println(outputPath)
     }

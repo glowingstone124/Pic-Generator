@@ -12,24 +12,17 @@ public class Request {
         String result = "";
         HttpURLConnection connection = null;
         try {
-            // Create a connection to the target URL.
             URL url = new URL(targetUrl);
             connection = (HttpURLConnection) url.openConnection();
-
-            // Set the request method to POST and the content type to application/json.
+            connection.setConnectTimeout(500);
+            connection.setReadTimeout(500);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
-
-            // Enable output and input for the connection.
             connection.setDoOutput(true);
             connection.setDoInput(true);
-
-            // Send the request data.
             try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
                 outputStream.writeBytes(data);
             }
-
-            // Read the response from the server.
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
@@ -40,12 +33,10 @@ public class Request {
                 }
             }
         } finally {
-            // Close the connection to the server.
             if (connection != null) {
                 connection.disconnect();
             }
         }
-        //Bukkit.getLogger().info("request "+targetUrl);
         return result;
     }
 
@@ -56,12 +47,10 @@ public class Request {
             // Create a connection to the target URL.
             URL url = new URL(targetUrl);
             connection = (HttpURLConnection) url.openConnection();
-
-            // Set the request method to POST and the content type to application/json.
+            connection.setConnectTimeout(500);
+            connection.setReadTimeout(500);
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
-
-            // Enable output and input for the connection.
             connection.setDoOutput(true);
             connection.setDoInput(true);
             int responseCode = connection.getResponseCode();
@@ -83,6 +72,8 @@ public class Request {
     public static void Download(String fileUrl, String savePath) throws IOException {
         URL url = new URL(fileUrl);
         URLConnection connection = url.openConnection();
+        connection.setConnectTimeout(500);
+        connection.setReadTimeout(500);
         try (InputStream inputStream = connection.getInputStream()) {
             Path targetPath = Path.of(savePath);
             Files.copy(inputStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
