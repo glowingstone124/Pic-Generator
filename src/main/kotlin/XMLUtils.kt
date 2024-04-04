@@ -22,10 +22,11 @@ class XMLUtils {
         try {
             replacedContent = content.replace(Regex("\\$\\w+")) {
                 when (it.value) {
-                    "\$current" -> current.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                    "\$current" -> current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
                     "\$mspt" -> mt.getStat().mspt.toString()
                     "\$onlinecount" -> mt.getStat().onlinecount.toString()
                     else -> {
+                        println("Like you announced a variable called ${it.value} in content.xml but forgot to configure it.")
                         it.value
                     }
                 }

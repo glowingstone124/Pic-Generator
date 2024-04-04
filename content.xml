@@ -6,4 +6,6 @@
     <text>$mspt</text>
     <boldtext>Online Players</boldtext>
     <text>$onlinecount</text>
+    <boldtext>Server Ping</boldtext>
+    <text>$ping</text>
 </contents>

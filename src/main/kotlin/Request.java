@@ -15,7 +15,7 @@ public class Request {
             URL url = new URL(targetUrl);
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(500);
-            connection.setReadTimeout(500);
+            connection.setReadTimeout(5000);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
@@ -48,7 +48,7 @@ public class Request {
             URL url = new URL(targetUrl);
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(500);
-            connection.setReadTimeout(500);
+            connection.setReadTimeout(5000);
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
